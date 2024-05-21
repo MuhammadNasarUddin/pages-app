@@ -1,21 +1,28 @@
 from django.shortcuts import render
 from .models import Post
-from django.views.generic import TemplateView,ListView
-# Create your views here.
+from django.views.generic import TemplateView, ListView, DetailView, DeleteView, UpdateView, CreateView
 
-
-class HomePageView(ListView):
+class PostListView(ListView):
     model = Post
     template_name = 'home.html'
-    context_object_name = 'all_posts_list'
 
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'detail.html'
 
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'delete.html'
+    success_url = '/'
 
-# class HomePageView(TemplateView):
-#     template_name = 'home.html'
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = 'update.html'
+    fields = ['title', 'body', 'author']
+    success_url = '/'
 
-
-
-
-class AboutPageView(TemplateView):
-    template_name = 'about.html'
+class PostCreateView(CreateView):
+    model = Post
+    template_name = 'create.html'
+    fields = ['title', 'body', 'author']
+    success_url = '/'
